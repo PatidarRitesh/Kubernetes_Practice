@@ -101,8 +101,47 @@ docker run -p 3000:3000 --network my-net --name nodeapp patidarritesh/node_mongo
 #### TO delete the deployment and service, run this command
 
 ```
-kubectl delete -n default deployment my-nodedb-app
+kubectl delete deployment my-nodedb-app
 
 ```
 
 ## Two pods with one container in each pod
+
+### Create config file Each contain configuraton for deployement and service 
+
+ 1. For database (In our case Mongodb) 
+ 2. For Web app (In our case NodeApp)
+ 3. For Config Map 
+
+* The configMap file contains the configuration of configMap and secret for the mongo-db
+*  We can also call this host mapping
+  
+
+### Run The config file using following command :
+
+```
+kubectl apply -f mongo-db.yml
+```
+```
+kubectl apply -f node-app.yml
+```
+```
+kubectl apply -f mongo-config.yml
+```
+
+### Now run minikube service 
+
+```
+minikube service <service name>
+```
+
+
+### volumes and data management in kubernetes :
+
+
+
+
+
+
+
+
