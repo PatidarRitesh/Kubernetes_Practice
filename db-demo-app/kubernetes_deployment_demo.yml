@@ -1,0 +1,22 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nodedb-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodedb-app
+  template:
+    metadata:
+      labels:
+        app: nodedb-app
+    spec:
+      containers:
+        - name: nodedb-app
+          image: patidarritesh/node_mongo_demo:latest
+        - name: mongodb
+          image: mongo:latest
+          # ports:
+          #   - containerPort: 80

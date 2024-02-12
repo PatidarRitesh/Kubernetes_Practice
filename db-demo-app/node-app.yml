@@ -1,0 +1,57 @@
+# This File contains the configuration for the deployment and service of the node-app
+
+# configuration for deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec: 
+      containers:
+      - name: node-app
+        image: patidarritesh/node_mongo_demo:03
+
+
+        # setting the environment variables for the node-app because we are using the two environment variables in the node-app for runnig it in seperate pod
+        env:
+          - name: MONGO_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-config
+                key: MONGO_HOST
+
+          - name: MONGO_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-config
+                key: MONGO_PORT
+          
+        
+
+
+---
+
+# configuration for services
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app-service
+
+spec:
+  selector:
+    app: node-app
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 3000
+  type: LoadBalancer
+

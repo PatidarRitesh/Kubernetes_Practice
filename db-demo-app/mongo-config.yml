@@ -1,0 +1,16 @@
+# This file contains the configuration of configMap and secret for the mongo-db
+# We can also call this host mapping
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+data:
+  MONGO_HOST: "mongdb-service"
+  MONGO_PORT: "27017"
+
+
+
+
+
+

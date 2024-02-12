@@ -1,0 +1,80 @@
+# # This file contains the configuration for the deployment and service of the mongo-db
+
+# # configuration for deployment
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: mongo-app
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mongo-app
+#   template:
+#     metadata:
+#       labels:
+#         app: mongo-app
+#     spec:
+#       containers:
+#       - name: mongo-app
+#         image: mongo:latest
+
+
+# ---
+
+# # configuration for services
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: mongdb-service
+
+# spec:
+#   selector:
+#     app: mongo-app
+#   ports:
+#     - name: tcp
+#       port: 27017
+#       targetPort: 27017
+  
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-app
+  template:
+    metadata:
+      labels:
+        app: mongo-app
+    spec:
+      containers:
+        - name: mongo-app
+          image: mongo:latest
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-vol
+      volumes:
+        - name: mongo-vol
+          persistentVolumeClaim:
+            claimName: host-pvc
+    
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongdb-service
+spec:
+  selector:
+    app: mongo-app
+  ports:
+    - name: tcp
+      port: 27017
+      targetPort: 27017

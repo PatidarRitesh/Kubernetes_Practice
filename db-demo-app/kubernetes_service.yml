@@ -1,0 +1,14 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nodedb-app
+spec:
+  selector:
+    app: nodedb-app
+  ports:
+    - name: http
+    # Accept traffic sent to port 80
+      port: 8080
+      targetPort: 3000
+  type: LoadBalancer
