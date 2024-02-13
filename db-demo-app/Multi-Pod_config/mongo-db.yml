@@ -1,3 +1,8 @@
+
+# TO run multicontainer pod without using volume
+
+
+
 # # This file contains the configuration for the deployment and service of the mongo-db
 
 # # configuration for deployment
@@ -38,6 +43,10 @@
 #       targetPort: 27017
   
 
+
+
+
+# TO run multi container pods with using volumes
 
 
 apiVersion: apps/v1

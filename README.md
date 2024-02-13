@@ -80,23 +80,33 @@ docker run -p 3000:3000 --network my-net --name nodeapp patidarritesh/node_mongo
 
 #### Refer kuberenetes_deployement_demo.yaml file and run this command
 
-```kubectl apply -f kuberenetes_deployement_demo.yaml```
+```
+kubectl apply -f kuberenetes_deployement_demo.yaml
+```
 
 #### After running this command, you can check the pods by running this command
 
-```kubectl get pods```
+```
+kubectl get pods
+```
 
 #### You can check the deployment of containers by running this command
 
-```kubectl get deployments```
+```
+kubectl get deployments
+```
 
-#### Now Refer kubernetes_service.yaml file and run this command
+#### Now Refer kubernetes_service.yml file and run this command
 
-```kubectl apply -f kubernetes_service.yaml```
+```
+kubectl apply -f kubernetes_service.yml
+```
 
 #### After running this command, you can check the service by running this command
 
-```mnikube services service_name```
+```
+mnikube services service_name
+```
 
 #### TO delete the deployment and service, run this command
 
@@ -136,8 +146,44 @@ minikube service <service name>
 ```
 
 
-### volumes and data management in kubernetes :
+## volumes and data management in kubernetes 
 
+#### Why Volumes ?
+
+
+* In Kubernetes, volumes play a crucial role in persisting and sharing data among containers within the same pod or across different pods. These volumes decouple the storage configuration from individual containers, offering a flexible solution for managing data.
+
+* If a server experiences downtime due to various reasons, Kubernetes is designed to automatically handle the recovery of applications. Kubernetes can reschedule and restart the affected pods on healthy nodes, ensuring the availability of the application. However, in the absence of a persistent storage solution, the data within the containers may be lost during these disruptions.
+
+* This is where volumes become essential. Volumes provide a means to persist data beyond the lifecycle of a pod or container. By using volumes, data can survive pod terminations, rescheduling, and even node failures. In the event of server downtime or pod rescheduling, Kubernetes can recreate the pods, and the data stored in volumes remains intact.
+
+### Persistent Volumes (PVs) and Persistent Volume Claims (PVCs):
+
+#### Create Two config file one for Persistent Volume for reserving volume or storage and one for Persistent Volume Claims for claming that reserved storage space.
+
+#### Now Run this Commands in same order :
+
+```
+kubectl apply -f host-pv.yml
+```
+```
+kubectl apply -f host-pvc.yml
+```
+
+#### After claiming volume now run our container 
+
+```
+kubectl apply -f mongo-db.yml
+```
+```
+kubectl apply -f node-app.yml
+```
+
+### Now run minikube service 
+
+```
+minikube service <service name>
+```
 
 
 
